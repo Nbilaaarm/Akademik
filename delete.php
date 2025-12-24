@@ -1,17 +1,16 @@
 <?php
-include ('koneksi.php');
+include("koneksi.php");
 
-if (isset($_GET['nim'])) {
-    $nim = $_GET['nim'];
+if(isset($_GET['nim'])){
+    
+    // Hapus data yang NIM-nya sesuai
+    $hapus = mysqli_query($db, "DELETE FROM mahasiswa WHERE nim='$_GET[nim]'");
 
-    $sql = "DELETE FROM mahasiswa WHERE nim='$nim'";
-    $query = $koneksi->query($sql);
-
-    if ($query) {
-        header("Location: index.php");
-        exit;
+    if($hapus){
+        // Sukses? Balik ke index bawa pesan 'hapus'
+        header("Location:index.php?pesan=hapus"); 
     } else {
-        echo "Data gagal dihapus";
+        echo "Gagal menghapus data.";
     }
 }
 ?>
